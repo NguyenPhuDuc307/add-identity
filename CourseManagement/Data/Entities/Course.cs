@@ -7,10 +7,16 @@ namespace CourseManagement.Data.Entities;
 public class Course
 {
     public int Id { get; set; }
+    [MaxLength(200)]
+    [Required]
     public string? Title { get; set; }
+    [MaxLength(200)]
+    [Required]
     public string? Topic { get; set; }
     [DataType(DataType.Date)]
     public DateTime ReleaseDate { get; set; }
+    [MaxLength(200)]
+    [Required]
     public string? Author { get; set; }
 
     public ICollection<Lesson>? Lessons { get; }

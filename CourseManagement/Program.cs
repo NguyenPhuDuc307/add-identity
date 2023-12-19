@@ -2,10 +2,17 @@ using Microsoft.EntityFrameworkCore;
 using CourseManagement.Data;
 using CourseManagement.Services;
 using Microsoft.OpenApi.Models;
+using CourseManagement.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CourseDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CourseDbContext") ?? throw new InvalidOperationException("Connection string 'CourseDbContext' not found.")));
+
+//Setup identity
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<CourseDbContext>()
+    .AddDefaultTokenProviders();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,6 +26,9 @@ builder.Services.AddTransient<IStorageService, FileStorageService>();
 
 //automapper configuration
 builder.Services.AddAutoMapper(typeof(Program));
+
+//DbInitializer
+builder.Services.AddTransient<DbInitializer>();
 
 // Swagger
 builder.Services.AddSwaggerGen(c =>
@@ -56,9 +66,23 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-
-    DbInitializer.Seed(services);
+    var db = scope.ServiceProvider.GetRequiredService<CourseDbContext>();
+    db.Database.Migrate();
+    var serviceProvider = scope.ServiceProvider;
+    try
+    {
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogInformation("Seeding data...");
+        var dbInitializer = serviceProvider.GetService<DbInitializer>();
+        if (dbInitializer != null)
+            dbInitializer.Seed()
+                         .Wait();
+    }
+    catch (Exception ex)
+    {
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
 }
 
 app.Run();
