@@ -287,6 +287,6 @@ using (var scope = app.Services.CreateScope())
 }
 ```
 
-Refer to the [Introduction to Identity on ASP.NET Core]([https://github.com/NguyenPhuDuc307/web-api](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-8.0&tabs=visual-studio)https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) by `Microsoft`.
+Refer to the [Introduction to Identity on ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) by `Microsoft`.
 
 Next let's [HttpClient](https://github.com/NguyenPhuDuc307/http-client).
