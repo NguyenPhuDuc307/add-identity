@@ -8,7 +8,7 @@ In this section:
 - Validate properties for Entities
 - Seed data for identity
 
-Before coming to this guide, please refer to [File Storage](https://github.com/NguyenPhuDuc307/file-storage).
+Before coming to this guide, please refer to [Part 10: File Storage](https://github.com/NguyenPhuDuc307/file-storage).
 
 ## Add Microsoft.AspNetCore.Identity.EntityFrameworkCore package
 
