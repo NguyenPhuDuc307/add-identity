@@ -47,16 +47,16 @@ namespace CourseManagement.Data
                 var result = await _userManager.CreateAsync(new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = "example.com",
+                    UserName = "example@gmail.com",
                     FullName = "Example",
-                    Email = "example.com",
+                    Email = "example@gmail.com",
                     LockoutEnabled = false,
                     PhoneNumber = "0987654321",
                     Dob = new DateTime(2000, 01, 01)
                 }, "Admin@123");
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByNameAsync("example.com");
+                    var user = await _userManager.FindByNameAsync("example@gmail.com");
                     if (user != null)
                         await _userManager.AddToRoleAsync(user, AdminRoleName);
                 }
