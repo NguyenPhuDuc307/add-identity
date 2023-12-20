@@ -289,4 +289,4 @@ using (var scope = app.Services.CreateScope())
 
 Refer to the [Introduction to Identity on ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) by `Microsoft`.
 
-Next let's [Authentication JWT API with Identity](https://github.com/NguyenPhuDuc307/auth-jwt).
+Next let's [Part 12: Authentication JWT API with Identity](https://github.com/NguyenPhuDuc307/auth-jwt).
